@@ -20,7 +20,7 @@
 2. *Create and activate a virtual environment*:
     bash
     python -m venv env
-   # On Windows, use `env\Scripts\activate`
+ On Windows, use `env\Scripts\activate`
     
 3. *Install the dependencies*:
     pip install -r requirements.txt
