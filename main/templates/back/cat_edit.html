@@ -1,0 +1,25 @@
+{% extends 'back/master.html' %}
+
+{% block mainblock %}
+<div class="content-header">
+    <div class="header-section">
+        <h1>
+            <i class="fa fa-pencil"></i> Edit Category<br><small>Make changes to the category here</small>
+        </h1>
+    </div>
+</div>
+
+<form action="" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="name">Category Name</label>
+        <input type="text" name="name" class="form-control" value="{{ cat.name }}" required>
+    </div>
+    <div class="form-group">
+        <label for="count">Count</label>
+        <input type="number" name="count" class="form-control" value="{{ cat.count }}" required>
+    </div>
+    <button type="submit" class="btn btn-success">Update</button>
+    <a href="{% url 'cat_list' %}" class="btn btn-danger">Cancel</a>
+</form>
+{% endblock %}

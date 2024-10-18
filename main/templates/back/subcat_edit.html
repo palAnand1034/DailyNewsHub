@@ -1,0 +1,29 @@
+{% extends 'back/master.html' %}
+
+{% block mainblock %}
+<div class="content-header">
+    <div class="header-section">
+        <h1>
+            <i class="fa fa-pencil"></i> Edit SubCategory<br><small>Make changes to the subcategory here</small>
+        </h1>
+    </div>
+</div>
+
+<form action="" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="name">SubCategory Name</label>
+        <input type="text" name="name" class="form-control" value="{{ subcat.name }}" required>
+    </div>
+    <div class="form-group">
+        <label for="cat">Category</label>
+        <select name="cat" class="form-control">
+            {% for category in cat %}
+            <option value="{{ category.pk }}" {% if category.pk == subcat.catid %} selected {% endif %}>{{ category.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <button type="submit" class="btn btn-success">Update</button>
+    <a href="{% url 'subcat_list' %}" class="btn btn-danger">Cancel</a>
+</form>
+{% endblock %}

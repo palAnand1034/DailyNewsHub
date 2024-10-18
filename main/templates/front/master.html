@@ -1,0 +1,408 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" >
+  <head >
+    {% block headblock %} {% endblock %}
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link
+      rel="icon"
+      type="image/png"
+      href="{% static 'front/images/icons/favicon.png' %}"
+    />
+
+    <!-- <link rel="stylesheet" type="text/css" href="{% static 'front/vendor/bootstrap/css/bootstrap.min.css' %}"> -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'front/fonts/fontawesome-5.0.8/css/fontawesome-all.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'front/fonts/iconic/css/material-design-iconic-font.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'front/vendor/animate/animate.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'front/vendor/css-hamburgers/hamburgers.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'front/vendor/animsition/css/animsition.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'front/css/util.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'front/css/main.css' %}"
+    />
+  </head>
+
+  <body class="animsition">
+    <!-- Header Section Start -->
+    <header>
+      <!-- Header desktop -->
+      <div class="container-menu-desktop">
+        <!-- TopBar NavBar  -->
+
+        <nav
+          class="navbar navbar-expand-lg bg-dark border-bottom border-body"
+          data-bs-theme="dark"
+        >
+          <div class="container-fluid d-flex justify-content-between">
+            <div class="d-flex align-items-center">
+              <span class="text-uppercase cl0 p-2">Trending Now:</span>
+              <span
+                class="align-content-center cl10 slide100-txt position-relative size-w-0"
+                data-in="fadeInDown"
+                data-out="fadeOutDown"
+              >
+                {% for trend in trending %}
+                <span
+                  class="dis-inline-block slide100-txt-item animated visible-false"
+                >
+                  {{ trend.txt }}
+                </span>
+                {% endfor %}
+              </span>
+            </div>
+
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarText"
+              aria-controls="navbarText"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          </div>
+
+          <div
+            class="collapse navbar-collapse justify-content-end p-2"
+            id="navbarText"
+          >
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link cl0"  href="/about">About</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link cl0" href="/contact">Contact</a>
+              </li>
+              <li class="nav-item">
+                <a class="btn btn-success px-3 me-2" href="/login">Admin</a>
+                </li>
+
+            </ul>
+            
+           
+          </div>
+        </nav>
+
+        <!-- Start -->
+        <!-- Start -->
+			<div class="wrap-main-nav">
+				<div class="main-nav">
+				<!-- Menu desktop (Menu nav bar) Start -->
+					<nav class="menu-desktop">
+						<a class="logo-stick" href="/">
+							<img src="{{ site.picurl }}" alt="LOGO">
+						</a>
+
+						<ul class="main-menu justify-content-center">
+							<li class="main-menu-active">
+								<a href="/">Home</a>
+							</li>
+
+							<!-- cat from views.py(main app) -->
+							{% for gg in cat %}
+							{% if gg.count != 0 %} <!--if the category has no news then the category will not be shown-->
+							<li class="mega-menu-item">
+								<a href="#category-{{ gg.pk }}">{{ gg.name }}</a>
+								
+								<div class="sub-mega-menu">
+								<!-- Sub Menu Bar (When i click or put cursor on Category Besides Home) Start -->
+									<div class="nav flex-column nav-pills" role="tablist">
+										<a class="nav-link active" data-toggle="pill" href="#news-0" role="tab">All</a>
+
+										{% for subcat in subcat %}
+										{% if subcat.catid == gg.pk %}
+										<a class="nav-link" data-toggle="pill" href="#{{ subcat.pk }}" role="tab">{{ subcat.name }}</a>
+										{% endif %}
+										{% endfor %}
+										
+									</div>
+								<!-- Sub Menu Bar (When i click or put cursor on Category Besides Home) End -->
+
+							<!-- Category and sub-category news shows in menu bar (When i click or put cursor on Category Besides Home) Start -->
+									<div class="tab-content">
+										<div class="tab-pane show active" id="news-0" role="tabpanel">
+											<div class="row">
+
+												<!-- here news is a query name from main app's views -->
+												{% for hh in news %}
+												{% if hh.ocatid == gg.pk %}  <!-- pk means id of the category -->
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="{% url 'news_detail' word=hh.name %}" class="wrap-pic-w hov1 trans-03">
+															<img style="display: inline-block; width: 220x; height: 110px;" src="{{ hh.picurl }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="#" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	{{ hh.name }}
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="{% url 'news_detail' word=hh.name %}" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	{{ hh.catname }}
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	{{ hh.date }}
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+												{% endif%}
+												{% endfor %}
+
+											</div>
+										</div>
+
+										{% for subcat2 in subcat %}
+										<div class="tab-pane" id="{{ subcat2.pk }}" role="tabpanel">
+											<div class="row">
+
+
+										<!-- here news is a query name from main app's views -->
+										{% for hh in news %}
+										{% if hh.catid == subcat2.pk %}  <!-- pk means id of the category -->
+										<div class="col-3">
+											<!-- Item post -->	
+											<div>
+												<a href="{% url 'news_detail' word=hh.name %}" class="wrap-pic-w hov1 trans-03">
+													<img style="display: inline-block; width: 220x; height: 110px;" src="{{ hh.picurl }}" alt="IMG">
+												</a>
+
+												<div class="p-t-10">
+													<h5 class="p-b-5">
+														<a href="#" class="f1-s-5 cl3 hov-cl10 trans-03">
+															{{ hh.name }}
+														</a>
+													</h5>
+
+													<span class="cl8">
+														<a href="{% url 'news_detail' word=hh.name %}" class="f1-s-6 cl8 hov-cl10 trans-03">
+															{{ hh.catname }}
+														</a>
+
+														<span class="f1-s-3 m-rl-3">
+															-
+														</span>
+
+														<span class="f1-s-3">
+															{{ hh.date }}
+														</span>
+													</span>
+												</div>
+											</div>
+										</div>
+										{% endif%}
+										{% endfor %}
+												
+
+											</div>
+										</div>
+										{% endfor %}
+
+									</div>
+							<!-- Category and sub-category news shows in menu bar (When i click or put cursor on Category Besides Home) End -->
+								</div>
+							</li>
+							{% endif %}
+							{% endfor %}
+
+						</ul>
+					</nav>
+				<!-- Menu desktop (Menu nav bar) End -->	
+				</div>
+			</div>	
+		<!-- End -->	
+		</div>
+	</header>
+
+
+    <!-- Header Section End -->
+
+    {% block mainblock %} {% endblock %}
+
+
+    <!-- Footer Section Start -->
+    <footer>
+      <div class="bg2 p-t-40 p-b-25">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-4 p-b-20">
+
+              <!-- <div class="size-h-3 flex-s-c">
+                <a href="/">
+                  <img class="max-s-full" src="{{ site.picurl2 }}" alt="LOGO" />
+                </a>
+              </div> -->
+
+              <div>
+                <p class="f1-s-1 cl11 p-b-16">
+                  Anand pal
+                  <br />
+                  Tell : {{ site.tell }}
+                </p>
+
+                <div class="p-t-15">
+
+
+                  <a
+                    href="{{ site.fb }}"
+                    class="fs-18 cl11 hov-cl10 trans-03 m-r-8"
+                  >
+                    <span class="fab fa-facebook-f"></span>
+                  </a>
+
+                  <a
+                    href="{{ site.tw }}"
+                    class="fs-18 cl11 hov-cl10 trans-03 m-r-8"
+                  >
+                    <span class="fab fa-twitter"></span>
+                  </a>
+
+                  <a
+                    href="{{ site.yt }}"
+                    class="fs-18 cl11 hov-cl10 trans-03 m-r-8"
+                  >
+                    <span class="fab fa-youtube"></span>
+                  </a>
+                </div>
+                <br />
+
+              </div>
+            </div>
+
+            <!-- Popular Post in Footer Section Start  -->
+            <div class="col-sm-6 col-lg-4 p-b-20">
+              <div class="size-h-3 flex-s-c">
+                <h5 class="f1-m-7 cl0">Popular Posts</h5>
+              </div>
+
+              <!-- Dynamic Popular Post in Footer Section Start -->
+              <ul>
+                {% for pop in popnews2 %}
+                <li class="flex-wr-sb-s p-b-20">
+                  <a
+                    href="{% url 'news_detail' word=pop.name %}"
+                    class="size-w-4 wrap-pic-w hov1 trans-03"
+                  >
+                    <img src="{{ pop.picurl }}" alt="IMG" />
+                  </a>
+
+                  <div class="size-w-5">
+                    <h6 class="p-b-5">
+                      <a
+                        href="{% url 'news_detail' word=pop.name %}"
+                        class="f1-s-5 cl11 hov-cl10 trans-03"
+                      >
+                        {{ pop.name }}
+                      </a>
+                    </h6>
+
+                    <span class="f1-s-3 cl6"> {{ pop.date }} </span>
+                  </div>
+                </li>
+                {% endfor %}
+              </ul>
+              <!-- Dynamic Popular Post in Footer Section End -->
+            </div>
+            <!-- Popular Post in Footer Section(Dynamic) End  -->
+
+            <div class="col-sm-6 col-lg-4 p-b-20">
+              <div class="size-h-3 flex-s-c">
+                <h5 class="f1-m-7 cl0">Category</h5>
+              </div>
+
+              <!-- For showing categories in footer start -->
+              <ul class="m-t--12">
+                {% for c in cat %} {% if c.count != 0 %}
+                <!--if the category has news then show it otherwise it will not appear-->
+                <li class="how-bor1 p-rl-5 p-tb-10">
+                  <p class="f1-s-5 cl11 hov-cl10 trans-03 p-tb-8">
+                    {{ c.name }} ({{ c.count }})
+                  </p>
+                </li>
+                {% endif %} {% endfor %}
+              </ul>
+              <!-- For showing categories in footer end -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg11">
+        <div class="container size-h-4 flex-c-c p-tb-15">
+          <span class="f1-s-1 cl0 txt-center">
+            © 2024
+          </span>
+        </div>
+      </div>
+    </footer>
+    <!-- Footer Section End -->
+
+    <!-- Back to top (Angle Up) Start -->
+    <div class="btn-back-to-top rounded-circle" id="myBtn" style="bottom: 39px; height: 50px; width: 50px;">
+      <span class="symbol-btn-back-to-top">
+        <span class="fas fa-angle-up"></span>
+      </span>
+    </div>
+
+    <!-- Back to top (Angle Up) End -->
+
+    <script src="{% static 'front/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'front/vendor/animsition/js/animsition.min.js' %}"></script>
+    <script src="{% static 'front/vendor/bootstrap/js/popper.js' %}"></script>
+    <!-- <script src="{% static 'front/vendor/bootstrap/js/bootstrap.min.js' %}"></script> -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <script src="{% static 'front/js/main.js' %}"></script>
+  </body>
+</html>

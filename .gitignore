@@ -1,0 +1,25 @@
+# Ignore environment variables and sensitive data
+env/
+*.env
+
+# Ignore SQLite database
+db.sqlite3
+
+# Ignore compiled Python files
+*.pyc
+_pycache_/
+
+# Ignore static and media files
+media/
+
+# Ignore virtual environments
+venv/
+env/
+
+# Ignore Django migration files (optional if you want to track migrations)
+*.log
+*.sqlite3-journal
+
+# Ignore temporary files and folders
+*.tmp
+*.bak

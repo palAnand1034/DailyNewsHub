@@ -1,0 +1,183 @@
+{% extends 'back/master.html' %}
+{% load static %}
+
+{% block mainblock %}
+<!-- Landing Page Start -->
+<div id="landing-page">
+    <div id="particles-js"></div>
+    <div class="content">
+        <h1>Welcome to the Admin Panel</h1>
+        <p>Your one-stop solution for managing categories, news, and settings effortlessly.</p>
+    </div>
+</div>
+<!-- Landing Page End -->
+
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+        font-family: Arial, sans-serif;
+    }
+
+    #landing-page {
+        position: relative;
+        height: 100vh;
+        color: #f0f0f0; /* Softer text color */
+        text-align: center;
+        overflow: hidden;
+        background-color: #282c34; /* Dark background color */
+    }
+
+    #particles-js {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+    }
+
+    .content {
+        position: relative;
+        z-index: 2;
+        top: 50%;
+        transform: translateY(-50%);
+        animation: fadeInUp 1s ease;
+    }
+
+    h1 {
+        font-size: 48px;
+        text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.7);
+        margin-bottom: 20px;
+    }
+
+    p {
+        font-size: 24px;
+        text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.7);
+    }
+
+    @keyframes fadeInUp {
+        0% {
+            transform: translateY(20px);
+            opacity: 0;
+        }
+        100% {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+<script>
+    particlesJS("particles-js", {
+        "particles": {
+            "number": {
+                "value": 100,  // Adjust number of particles
+                "density": {
+                    "enable": true,
+                    "value_area": 800
+                }
+            },
+            "color": {
+                "value": "#a0aec0" // Softer particle color
+            },
+            "shape": {
+                "type": "circle",
+                "stroke": {
+                    "width": 0,
+                    "color": "#000000"
+                }
+            },
+            "opacity": {
+                "value": 0.6,  // Slightly reduced opacity
+                "random": false,
+                "anim": {
+                    "enable": false,
+                    "speed": 1,
+                    "opacity_min": 0.1,
+                    "sync": false
+                }
+            },
+            "size": {
+                "value": 5,  // Adjust particle size
+                "random": true,
+                "anim": {
+                    "enable": false,
+                    "speed": 40,
+                    "size_min": 0.1,
+                    "sync": false
+                }
+            },
+            "line_linked": {
+                "enable": true,
+                "distance": 150,
+                "color": "#a0aec0", // Softer line color
+                "opacity": 0.4,
+                "width": 1  // Adjust line width
+            },
+            "move": {
+                "enable": true,
+                "speed": 5,
+                "direction": "none",
+                "random": false,
+                "straight": false,
+                "out_mode": "out",
+                "bounce": false,
+                "attract": {
+                    "enable": false,
+                    "rotateX": 600,
+                    "rotateY": 1200
+                }
+            }
+        },
+        "interactivity": {
+            "detect_on": "canvas",
+            "events": {
+                "onhover": {
+                    "enable": true,
+                    "mode": "repulse"
+                },
+                "onclick": {
+                    "enable": true,
+                    "mode": "push"
+                },
+                "resize": true
+            },
+            "modes": {
+                "grab": {
+                    "distance": 400,
+                    "line_linked": {
+                        "opacity": 1
+                    }
+                },
+                "bubble": {
+                    "distance": 400,
+                    "size": 40,
+                    "duration": 2,
+                    "opacity": 8,
+                    "speed": 3
+                },
+                "repulse": {
+                    "distance": 200,
+                    "duration": 1
+                },
+                "push": {
+                    "particles_nb": 4
+                },
+                "remove": {
+                    "particles_nb": 2
+                }
+            }
+        },
+        "retina_detect": true
+    });
+</script>
+{% endblock %}
+
+{% block footerblock %}
+<script src="{% static 'back/js/pages/index.js' %}"></script>
+<script>$(function(){ Index.init(); });</script>
+{% endblock %}
